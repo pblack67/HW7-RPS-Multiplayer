@@ -9,20 +9,27 @@
 </head>
 
 <body>
-    <div>
-        <input type="text" name="userName" id="userName">
-        <button id="loginButton">Login</button>
-    </div>
-    <button class="rps-button" data-name="rock">Rock</button>
-    <button class="rps-button" data-name="paper">Paper</button>
-    <button class="rps-button" data-name="scissors">Scissors</button>
-    <br>
-    <h1 id="results">Results</h1>
-    <h1 id="standings">Standings</h1>
-    <h3>
-        <span id="watchers"></span> people are watching you click! Don't let them down!</span>
-    </h3>
+    <div id="loginArea">
 
+        <form>
+            <input type="text" name="userName" id="userName">
+            <button type="submit" id="loginButton">Login</button>
+        </form>
+    </div>
+    <div id="playArea">
+        <h1 id="welcome">Welcome</h1>
+        <button class="rps-button" data-name="rock">Rock</button>
+        <button class="rps-button" data-name="paper">Paper</button>
+        <button class="rps-button" data-name="scissors">Scissors</button>
+        <br>
+        <h1 id="results">Results</h1>
+        <h1 id="standings">Standings</h1>
+    </div>
+    <div>
+        <h3>
+            <span id="watchers"></span></span>
+        </h3>
+    </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase.js"></script>
     <script src="assets/javascript/rps.js"></script>

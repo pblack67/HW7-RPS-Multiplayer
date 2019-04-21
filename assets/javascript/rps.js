@@ -17,17 +17,14 @@ var connectedRef = database.ref(".info/connected");
 var rpsDataRef = database.ref("/rpsData");
 var userName = "";
 var loggedIn = false;
+var choices = [];
+var myChoice = "";
 
-// When the client's connection state changes...
 function newConnectionCallback(snap) {
     console.log("newConnectionCallback");
-    // If they are connected..
     if (snap.val()) {
         console.log(snap.val());
-        // Add user to the connections list.
         var con = connectionsRef.push(true);
-
-        // Remove user from the connection list when they disconnect.
         con.onDisconnect().remove();
     }
 }
@@ -36,22 +33,55 @@ function connectionsCallback(snapshot) {
     console.log("connectionsCallback");
     if (!loggedIn) {
         if (snapshot.numChildren() > 2) {
-            $("#watchers").text("No playing for you! Too many users!")
+            $("#watchers").text("You need to wait for someone to logout! You'll be automatically connected to the next player available.");
         } else {
             loggedIn = true;
+            $("#playArea").show();
+            $("#loginArea").hide();
             $("#watchers").text(snapshot.numChildren());
+            userName = $("#userName").val()
+            database.ref("/rpsData").on("value", rpsDataCallback);
+        }
+    }
+    $("#watchers").text(snapshot.numChildren());
+}
+
+function saveChoices() {
+    rpsDataRef.set(
+        {
+            choices
+        }
+    );
+}
+
+function rpsDataCallback(snapshot) {
+    console.log("rpsDataCallback called");
+    console.log("snapshot.val()", snapshot.val());
+    if (snapshot.val() != null) {
+        choices = snapshot.val().choices;
+        if (choices.length == 2) {
+            console.log("Choose winner here", choices);
+            choices = [];
+            myChoice = "";
+            saveChoices();
         }
     }
 }
 
-// When first loaded or when the connections list changes...
-
 function rpsButtonClicked() {
     console.log("rpsButtonClicked", this);
+    if (myChoice == "") {
+        myChoice = $(this).attr("data-name");
+        choices.push(myChoice);
+        saveChoices();
+    } else {
+        console.log("You made your choice. Wait for the other player!");
+    }
 }
 
-function loginButtonClicked() {
+function loginButtonClicked(event) {
     console.log("loginButtonClicked");
+    event.preventDefault();
     connectedRef.on("value", newConnectionCallback);
     connectionsRef.on("value", connectionsCallback);
 }
@@ -59,4 +89,5 @@ function loginButtonClicked() {
 $(function () {
     $(document).on("click", ".rps-button", rpsButtonClicked);
     $(document).on("click", "#loginButton", loginButtonClicked);
+    $("#playArea").hide();
 });
