@@ -1,14 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>RPS - Multiplayer</title>
 </head>
+
 <body>
+    <div>
+        <input type="text" name="userName" id="userName">
+        <button id="loginButton">Login</button>
+    </div>
+    <button class="rps-button" data-name="rock">Rock</button>
+    <button class="rps-button" data-name="paper">Paper</button>
+    <button class="rps-button" data-name="scissors">Scissors</button>
+    <br>
+    <h1 id="results">Results</h1>
+    <h1 id="standings">Standings</h1>
+    <h3>
+        <span id="watchers"></span> people are watching you click! Don't let them down!</span>
+    </h3>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase.js"></script>
     <script src="assets/javascript/rps.js"></script>
 </body>
+
 </html>
