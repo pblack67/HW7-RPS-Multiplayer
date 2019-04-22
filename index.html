@@ -12,57 +12,62 @@
 
 <body>
     <div class="container">
-        <div class="row">
-            <div class="col-8">
+        <div class="row align-items-center">
+            <div class="col-6">
                 <div id="loginArea">
                     <form class="m-3">
-                            <label for="userName">Please enter your name</label>
-                            <!-- <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email"> -->
-                        <input type="text" class="form-control border border-primary rounded" name="userName" id="userName">
+                        <label for="userName">Please enter your name</label>
+                        <input type="text" class="form-control border border-primary rounded" name="userName"
+                            id="userName">
                         <button type="submit" class="btn btn-primary mt-2" id="loginButton">Login</button>
                     </form>
                 </div>
-                <div id="playArea">
-                    <h1 id="welcome" class=""></h1>
-                    <div id="rpsButtons">
+                <div id="playArea" class="m-3">
+                    <h1 id="welcome" class="text-center"></h1>
+                    <div id="rpsButtons" class="text-center">
                         <button class="rps-button btn btn-primary" data-name="rock">Rock</button>
                         <button class="rps-button btn btn-primary" data-name="paper">Paper</button>
                         <button class="rps-button btn btn-primary" data-name="scissors">Scissors</button>
                     </div>
-                    <button id="playAgainButton" class="btn btn-primary" data-name="">Play again</button>
-                    <br>
-                    <h1 id="winloss"></h1>
-                    <div class="border border-primary rounded m-3">
-                        <h3 id="standings" class="m-2">Standings</h3>
-                        <table class="table">
-                            <tr>
-                                <th scope="row">Wins</th>
-                                <td><span id="wins">0</span></td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Losses</th>
-                                <td><span id="losses">0</span></td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Ties</th>
-                                <td><span id="ties">0</span></td>
-                            </tr>
-                        </table>
+                    <div class="text-center">
+                        <button id="playAgainButton" class="btn btn-primary" data-name="">Play
+                            again</button>
                     </div>
+                    <br>
+                    <h4 id="winloss" class="text-center"></h4>
                 </div>
-                <div id="chatArea" class="m-3">
-                    <textarea id="chatText" class="border border-primary rounded" rows="10" cols="80"></textarea>
-                    <form>
-                        <input id="sendText" class="border border-primary rounded" type="text" name="sendText" id="chatMessage">
-                        <button type="submit" class="btn btn-primary" id="sendTextButton">Send</button>
-                    </form>
-                </div>
-                <!-- <div>
-                    <h3>
-                        <span id="watchers"></span></span>
-                    </h3>
-                </div> -->
+
             </div>
+            <div class="col-6">
+                <div id="standings" class="border border-primary rounded m-3">
+                    <h3 class="m-2">Standings</h3>
+                    <table class="table">
+                        <tr>
+                            <th scope="row">Wins</th>
+                            <td><span id="wins">0</span></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Losses</th>
+                            <td><span id="losses">0</span></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Ties</th>
+                            <td><span id="ties">0</span></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="row m-3">
+            <div id="chatArea" class="form-control m-3 h-100">
+                <textarea readonly id="chatText" class="h-100 form-control border border-primary rounded"></textarea>
+                <form>
+                    <input id="sendText" class="border border-primary rounded mt-3" type="text" name="sendText"
+                        id="chatMessage">
+                    <button type="submit" class="btn btn-primary" id="sendTextButton">Send</button>
+                </form>
+            </div>
+
         </div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

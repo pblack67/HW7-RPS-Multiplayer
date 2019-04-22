@@ -45,6 +45,7 @@ function connectionsCallback(snapshot) {
             loggedIn = true;
             $("#playArea").show();
             $("#chatArea").show();
+            $("#standings").show();
             $("#loginArea").hide();
             $("#watchers").text(snapshot.numChildren());
             userName = $("#userName").val()
@@ -95,7 +96,7 @@ function chatDataCallback(snapshot) {
     console.log("Received chat message: ", snapshot.val());
     if (snapshot.val() != null) {
         var chatText = $("#chatText").text();
-        $("#chatText").text(chatText + snapshot.val().sendText + "\n");
+        $("#chatText").text(snapshot.val().sendText + "\n" + chatText);
     }
 }
 
@@ -104,13 +105,16 @@ function rpsDataCallback(snapshot) {
     console.log("snapshot.val()", snapshot.val());
     if (snapshot.val() != null) {
         choices = snapshot.val().choices;
+        // If both players have made a choice
         if (choices.length === 2) {
             var opponentChoice = "";
+            // Figure out whose choice is whose
             if (choices[0] === myChoice) {
                 opponentChoice = choices[1];
             } else {
                 opponentChoice = choices[0];
             }
+            // Figure out wins/losses/ties
             console.log("myChoice", myChoice);
             console.log("opponentChoice", opponentChoice);
             if (myChoice == opponentChoice) {
@@ -145,6 +149,9 @@ function rpsButtonClicked() {
         choices.push(myChoice);
         saveChoices();
         $("#rpsButtons").hide();
+        if (choices.length == 1) {
+            $("#winloss").text("You chose " + myChoice + ". Waiting for other player.");
+        }
     }
 }
 
@@ -174,12 +181,6 @@ function sentTextButtonClicked(event) {
         }
     );
     chatDataRef.remove();
-    // sendText = "";
-    // chatDataRef.set(
-    //     {
-    //         sendText
-    //     }
-    // );
     $("#sendText").val("");
 }
 
@@ -188,6 +189,7 @@ $(function () {
     $(document).on("click", "#loginButton", loginButtonClicked);
     $("#playAgainButton").on("click", playAgainButtonClicked);
     $("#playArea").hide();
+    $("#standings").hide();
     $("#chatArea").hide();
     $("#playAgainButton").hide();
     $("#sendTextButton").on("click", sentTextButtonClicked);
