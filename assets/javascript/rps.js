@@ -40,19 +40,21 @@ function connectionsCallback(snapshot) {
     console.log("connectionsCallback");
     if (!loggedIn) {
         if (snapshot.numChildren() > 2) {
-            $("#watchers").text("You need to wait for someone to logout! You'll be automatically connected to the next player available.");
+            $("#tooManyWarning").show();
+            $("#loginButton").hide();
+            $("#userNameLabel").hide();
+            $("#userName").hide();
+
         } else {
             loggedIn = true;
             $("#playArea").show();
             $("#chatArea").show();
             $("#standings").show();
             $("#loginArea").hide();
-            $("#watchers").text(snapshot.numChildren());
             userName = $("#userName").val()
             database.ref("/rpsData").on("value", rpsDataCallback);
         }
     }
-    $("#watchers").text(snapshot.numChildren());
 }
 
 function saveChoices() {
@@ -188,9 +190,5 @@ $(function () {
     $(document).on("click", ".rps-button", rpsButtonClicked);
     $(document).on("click", "#loginButton", loginButtonClicked);
     $("#playAgainButton").on("click", playAgainButtonClicked);
-    $("#playArea").hide();
-    $("#standings").hide();
-    $("#chatArea").hide();
-    $("#playAgainButton").hide();
     $("#sendTextButton").on("click", sentTextButtonClicked);
 });
