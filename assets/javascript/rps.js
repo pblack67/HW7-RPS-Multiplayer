@@ -1,5 +1,5 @@
 // Initialize Firebase
-var config = {
+const config = {
     apiKey: "AIzaSyDipImY3E3D3wQGifx2_x8bP-k92bdfWUc",
     authDomain: "fir-sandbox-14b6e.firebaseapp.com",
     databaseURL: "https://fir-sandbox-14b6e.firebaseio.com",
@@ -9,29 +9,29 @@ var config = {
 };
 firebase.initializeApp(config);
 
-var database = firebase.database();
+const database = firebase.database();
 
-var connectionsRef = database.ref("/connections");
-var connectedRef = database.ref(".info/connected");
-var rpsDataRef = database.ref("/rpsData");
-var chatDataRef = database.ref("/chatData");
+const connectionsRef = database.ref("/connections");
+const connectedRef = database.ref(".info/connected");
+const rpsDataRef = database.ref("/rpsData");
+const chatDataRef = database.ref("/chatData");
 
 // Global Variables
-var userName = "";
-var loggedIn = false;
-var choices = [];
-var myChoice = "";
+let userName = "";
+let loggedIn = false;
+let choices = [];
+let myChoice = "";
 
 // Standings
-var wins = 0;
-var losses = 0;
-var ties = 0;
+let wins = 0;
+let losses = 0;
+let ties = 0;
 
 function newConnectionCallback(snap) {
     console.log("newConnectionCallback");
     if (snap.val()) {
         console.log(snap.val());
-        var con = connectionsRef.push(true);
+        let con = connectionsRef.push(true);
         con.onDisconnect().remove();
     }
 }
@@ -85,7 +85,7 @@ function isWinner(choice1, choice2) {
 }
 
 function setWinLossMessage(rps1, rps2, isWin) {
-    var winLossMessage = "";
+    let winLossMessage = "";
     if (isWin) {
         winLossMessage = rps1 + " beats " + rps2 + ". You Win!!!";
     } else {
@@ -97,7 +97,7 @@ function setWinLossMessage(rps1, rps2, isWin) {
 function chatDataCallback(snapshot) {
     console.log("Received chat message: ", snapshot.val());
     if (snapshot.val() != null) {
-        var chatText = $("#chatText").text();
+        let chatText = $("#chatText").text();
         $("#chatText").text(snapshot.val().sendText + "\n" + chatText);
     }
 }
@@ -109,7 +109,7 @@ function rpsDataCallback(snapshot) {
         choices = snapshot.val().choices;
         // If both players have made a choice
         if (choices.length === 2) {
-            var opponentChoice = "";
+            let opponentChoice = "";
             // Figure out whose choice is whose
             if (choices[0] === myChoice) {
                 opponentChoice = choices[1];
@@ -123,7 +123,7 @@ function rpsDataCallback(snapshot) {
                 $("#winloss").text("You both chose " + myChoice + ". It's a tie!");
                 ties++;
             } else {
-                var result = isWinner(myChoice, opponentChoice);
+                let result = isWinner(myChoice, opponentChoice);
                 setWinLossMessage(myChoice, opponentChoice, result);
                 if (result) {
                     wins++;
@@ -175,7 +175,7 @@ function playAgainButtonClicked(event) {
 
 function sentTextButtonClicked(event) {
     event.preventDefault();
-    var sendText = userName + ": " + $("#sendText").val();
+    let sendText = userName + ": " + $("#sendText").val();
     console.log("Sending chat text", sendText)
     chatDataRef.set(
         {
