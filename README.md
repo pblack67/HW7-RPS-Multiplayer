@@ -2,6 +2,10 @@
 
 * URL: [https://pblack67.github.io/RPS-Multiplayer/](https://pblack67.github.io/RPS-Multiplayer/)
 
+![Paul](/images/paul.png)
+![Bob](/images/bob.png)
+
+
 * Technologies: HTML, CSS, Bootstrap, JavaScript, Events, jQuery, Firebase
 
 ## Overview
